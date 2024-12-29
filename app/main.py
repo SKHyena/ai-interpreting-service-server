@@ -20,7 +20,6 @@ from .provider.audio_manager import ResumableMicrophoneSocketStream, listen_prin
 from .service.chat_service import ChatServiceManager
 from .service.llm.gpt_service import GptServiceManager
 from .service.mail_service import MailServiceManager
-from .service.transcribe_service import TranscriptionService
 from .service.audio_stream_service import AudioStreamServiceManager
 from .model.file_info import FileInfo
 from .model.attendee import Attendance
