@@ -14,5 +14,4 @@ async def websocket_endpoint(websocket: WebSocket, pairing_code: str):
             await manager.broadcast_message(pairing_code, data)
 
     except WebSocketDisconnect:
-        manager.disconnect(pairing_code, websocket)
-        await manager.send_message(pairing_code, "A user has disconnected.")
+        manager.disconnect(pairing_code, websocket)        
