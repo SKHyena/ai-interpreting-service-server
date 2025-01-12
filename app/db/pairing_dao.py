@@ -160,12 +160,36 @@ class PairingDAO:
                 )
                 conn.commit()
                 return cur.rowcount > 0
+            
+    def update_pairing_by_pairing_code(self, pairing_code: str) -> bool:
+        query = """
+        UPDATE aits.tb_pairings
+        SET counselor_device_id = %s, counselor_user_id = %s, status = %s, 
+        counselor_pairing_time = %s, updated_at = CURRENT_TIMESTAMP
+        WHERE pairing_code = %s;
+        """
+        with self._get_connection() as conn:
+            with conn.cursor() as cur:
+                cur.execute(
+                    query, 
+                    (None, None, "waiting", None, pairing_code)
+                )
+                conn.commit()
+                return cur.rowcount > 0
 
     def delete_pairing(self, pairing_id: int) -> bool:
         query = "DELETE FROM aits.tb_pairings WHERE pairing_id = %s;"
         with self._get_connection() as conn:
             with conn.cursor() as cur:
                 cur.execute(query, (pairing_id,))
+                conn.commit()
+                return cur.rowcount > 0
+            
+    def delete_pairing_by_pairing_code(self, pairing_code: str) -> bool:
+        query = "DELETE FROM aits.tb_pairings WHERE pairing_code = %s;"
+        with self._get_connection() as conn:
+            with conn.cursor() as cur:
+                cur.execute(query, (pairing_code,))
                 conn.commit()
                 return cur.rowcount > 0
 

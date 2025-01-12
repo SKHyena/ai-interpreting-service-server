@@ -21,19 +21,19 @@ def create_pairing(pairing: PairingCreate):
         is_updated: bool = dao.update_pairing(pairing)
         if not is_updated:
             raise HTTPException(status_code=400, detail="Failed to update pairing")
-        return {"type": "update", "status": "success"}
+        return {"type": "update", "status": "success", "message": "Pairing updated successfully"}
     
     pairing_id = dao.insert_pairing(pairing)
     if not pairing_id:
         raise HTTPException(status_code=400, detail="Failed to create pairing")
-    return {"type": "create", "status": "success"}
+    return {"type": "create", "status": "success", "message": "Pairing created successfully"}
 
 
 @router.get("/{pairing_id}", response_model=PairingResponse)
 def get_pairing(pairing_id: int):
     pairing = dao.get_pairing_by_id(pairing_id)
     if not pairing:
-        raise HTTPException(status_code=404, detail="Pairing not found")
+        raise HTTPException(status_code=404, detail="Pairing not found")    
     return pairing
 
 
@@ -45,6 +45,15 @@ def get_paired_counselor(pairing_number: str):
         raise HTTPException(status_code=404, detail="Counselor not found with pairing code")
     
     return counselor
+
+
+@router.put("/{pairing_code}")
+def disconnect_pairing(pairing_code: str):
+    success = dao.update_pairing_by_pairing_code(pairing_code)
+    if not success:
+        raise HTTPException(status_code=404, detail="Pairing not found or delete failed")
+    return {"type": "update", "status": "success", "message": "Pairing disconnected successfully"}
+
 
 
 @router.get("/", response_model=List[PairingResponse])
@@ -59,14 +68,6 @@ def update_pairing_status(pairing_id: int, status: str):
     if not success:
         raise HTTPException(status_code=404, detail="Pairing not found or update failed")
     return {"message": "Pairing status updated successfully"}
-
-
-@router.delete("/{pairing_id}")
-def delete_pairing(pairing_id: int):
-    success = dao.delete_pairing(pairing_id)
-    if not success:
-        raise HTTPException(status_code=404, detail="Pairing not found or delete failed")
-    return {"message": "Pairing deleted successfully"}
 
 
 @router.delete("/drop")
