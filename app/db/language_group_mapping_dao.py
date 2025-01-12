@@ -1,5 +1,5 @@
 import psycopg2
-from app.models.language_group_mapping import LanguageGroupMapping
+from ..models.language_group_mapping import LanguageGroupMapping
 from typing import List, Optional
 
 class LanguageGroupMappingDAO:

@@ -1,5 +1,5 @@
 import psycopg2
-from app.models.counseling_summary import CounselingSummary
+from ..models.counseling_summary import CounselingSummary
 from typing import List, Optional
 
 class CounselingSummaryDAO:

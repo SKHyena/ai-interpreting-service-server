@@ -104,6 +104,18 @@ class CounselingSessionDAO:
                 cur.execute(query, (status, session_id))
                 conn.commit()
                 return cur.rowcount > 0
+    
+    def update_session_status_by_pairing_id(self, pairing_id: int, status: str) -> bool:
+        query = """
+        UPDATE aits.tb_counseling_sessions
+        SET status = %s, updated_at = CURRENT_TIMESTAMP
+        WHERE pairing_id = %s;
+        """
+        with self._get_connection() as conn:
+            with conn.cursor() as cur:
+                cur.execute(query, (status, pairing_id))
+                conn.commit()
+                return cur.rowcount > 0
 
     def delete_session(self, session_id: int) -> bool:
         query = "DELETE FROM aits.tb_counseling_sessions WHERE counseling_session_id = %s;"

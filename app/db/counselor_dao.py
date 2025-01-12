@@ -1,6 +1,5 @@
 import psycopg2
-from app.models.counselor import Counselor
-from app.config import settings
+from ..models.counselor import Counselor
 from typing import List, Optional
 
 class CounselorDAO:

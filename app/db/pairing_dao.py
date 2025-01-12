@@ -71,6 +71,46 @@ class PairingDAO:
                         updated_at=row[8],
                     )
                 return None
+            
+    def get_pairing_by_client_device_id(self, client_device_id: str) -> Optional[Pairing]:
+        query = "SELECT * FROM aits.tb_pairings WHERE client_device_id = %s;"
+        with self._get_connection() as conn:
+            with conn.cursor() as cur:
+                cur.execute(query, (client_device_id,))
+                row = cur.fetchone()
+                if row:
+                    return Pairing(
+                        pairing_id=row[0],
+                        client_device_id=row[1],
+                        counselor_device_id=row[2],
+                        counselor_user_id=row[3],
+                        pairing_code=row[4],
+                        status=row[5],
+                        counselor_pairing_time=row[6],
+                        created_at=row[7],
+                        updated_at=row[8],
+                    )
+                return None
+            
+    def get_pairing_by_pairing_code(self, pairing_code: str) -> Optional[Pairing]:
+        query = "SELECT * FROM aits.tb_pairings WHERE pairing_code = %s;"
+        with self._get_connection() as conn:
+            with conn.cursor() as cur:
+                cur.execute(query, (pairing_code,))
+                row = cur.fetchone()
+                if row:
+                    return Pairing(
+                        pairing_id=row[0],
+                        client_device_id=row[1],
+                        counselor_device_id=row[2],
+                        counselor_user_id=row[3],
+                        pairing_code=row[4],
+                        status=row[5],
+                        counselor_pairing_time=row[6],
+                        created_at=row[7],
+                        updated_at=row[8],
+                    )
+                return None
 
     def get_all_pairings(self) -> List[Pairing]:
         query = "SELECT * FROM aits.tb_pairings ORDER BY created_at DESC;"
@@ -101,6 +141,23 @@ class PairingDAO:
         with self._get_connection() as conn:
             with conn.cursor() as cur:
                 cur.execute(query, (status, pairing_id))
+                conn.commit()
+                return cur.rowcount > 0
+
+    def update_pairing(self, pairing: Pairing) -> bool:
+        query = """
+        UPDATE aits.tb_pairings
+        SET client_device_id = %s, counselor_user_id = %s, pairing_code = %s, 
+        status = %s, counselor_pairing_time = %s, updated_at = CURRENT_TIMESTAMP
+        WHERE pairing_id = %s;
+        """
+        with self._get_connection() as conn:
+            with conn.cursor() as cur:
+                cur.execute(
+                    query, 
+                    (pairing.client_device_id, pairing.counselor_device_id, pairing.pairing_code, 
+                     pairing.status, pairing.counselor_pairing_time, pairing.pairing_id)
+                )
                 conn.commit()
                 return cur.rowcount > 0
 
