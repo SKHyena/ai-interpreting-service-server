@@ -3,9 +3,10 @@ from typing import List, Optional
 import psycopg2
 
 from ..models.counseling_chat_log import CounselingChatLog
+from ..config import db_config
 
 class CounselingChatLogDAO:
-    def __init__(self, db_config: dict):
+    def __init__(self):
         self.db_config = db_config
 
     def _get_connection(self):

@@ -3,9 +3,11 @@ from typing import List, Optional
 import psycopg2
 
 from ..models.counselor import Counselor
+from ..config import db_config
+
 
 class CounselorDAO:
-    def __init__(self, db_config: dict):
+    def __init__(self):
         self.db_config = db_config
 
     def _get_connection(self):

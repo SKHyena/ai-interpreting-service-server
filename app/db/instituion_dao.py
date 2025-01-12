@@ -3,10 +3,11 @@ from typing import List, Optional
 import psycopg2
 
 from ..models.institution import Institution
+from ..config import db_config
 
 
 class InstitutionDAO:
-    def __init__(self, db_config: dict):
+    def __init__(self):
         self.db_config = db_config
 
     def _get_connection(self):

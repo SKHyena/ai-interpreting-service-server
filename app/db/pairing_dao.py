@@ -3,10 +3,11 @@ from typing import List, Optional
 import psycopg2
 
 from ..models.pairing import Pairing
+from ..config import db_config
 
 
 class PairingDAO:
-    def __init__(self, db_config: dict):
+    def __init__(self):
         self.db_config = db_config
 
     def _get_connection(self):

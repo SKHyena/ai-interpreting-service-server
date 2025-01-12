@@ -3,9 +3,11 @@ from typing import List, Optional
 import psycopg2
 
 from ..models.language_group import LanguageGroup
+from ..config import db_config
+
 
 class LanguageGroupDAO:
-    def __init__(self, db_config: dict):
+    def __init__(self):
         self.db_config = db_config
 
     def _get_connection(self):
