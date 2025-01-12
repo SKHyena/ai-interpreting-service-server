@@ -1,7 +1,9 @@
-from fastapi import APIRouter, HTTPException, Depends
-from app.schemas.language_group import LanguageGroupCreate, LanguageGroupResponse
-from app.db.language_group_dao import LanguageGroupDAO
 from typing import List
+
+from fastapi import APIRouter, HTTPException, Depends
+
+from ..schemas.language_group import LanguageGroupCreate, LanguageGroupResponse
+from ..db.language_group_dao import LanguageGroupDAO
 
 router = APIRouter()
 dao = LanguageGroupDAO()

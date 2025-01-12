@@ -1,7 +1,9 @@
-from fastapi import APIRouter, HTTPException, Depends
-from app.schemas.language import LanguageCreate, LanguageResponse
-from app.db.language_dao import LanguageDAO
 from typing import List
+
+from fastapi import APIRouter, HTTPException, Depends
+
+from ..schemas.language import LanguageCreate, LanguageResponse
+from ..db.language_dao import LanguageDAO
 
 router = APIRouter()
 dao = LanguageDAO()

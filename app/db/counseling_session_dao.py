@@ -1,6 +1,8 @@
-import psycopg2
-from app.models.counseling_session import CounselingSession
 from typing import List, Optional
+
+import psycopg2
+
+from ..models.counseling_session import CounselingSession
 
 class CounselingSessionDAO:
     def __init__(self, db_config: dict):        

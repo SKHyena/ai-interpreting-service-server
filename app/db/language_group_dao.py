@@ -1,6 +1,8 @@
-import psycopg2
-from app.models.language_group import LanguageGroup
 from typing import List, Optional
+
+import psycopg2
+
+from ..models.language_group import LanguageGroup
 
 class LanguageGroupDAO:
     def __init__(self, db_config: dict):

@@ -1,6 +1,8 @@
-import psycopg2
-from ..models.counseling_summary import CounselingSummary
 from typing import List, Optional
+
+import psycopg2
+
+from ..models.counseling_summary import CounselingSummary
 
 class CounselingSummaryDAO:
     def __init__(self, db_config: dict):

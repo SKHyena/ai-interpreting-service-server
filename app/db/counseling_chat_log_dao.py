@@ -1,6 +1,8 @@
-import psycopg2
-from app.models.counseling_chat_log import CounselingChatLog
 from typing import List, Optional
+
+import psycopg2
+
+from ..models.counseling_chat_log import CounselingChatLog
 
 class CounselingChatLogDAO:
     def __init__(self, db_config: dict):
