@@ -8,4 +8,5 @@ __all__ = [
     "counseling_chat_log_router",
     "counseling_session_router",
     "counseling_summary_router",
+    "websocket_router",
 ]
